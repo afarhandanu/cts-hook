@@ -18,6 +18,7 @@ final class QuickstepNavHandleHook {
 
     static void install(ClassLoader classLoader, String packageName) {
         QuickstepFeatureGateHook.install(classLoader, packageName);
+        QuickstepMotionEventHook.install(classLoader, packageName);
 
         Class<?> handlerClass = HookUtils.findClassIfExists(NAV_HANDLE_LONG_PRESS_HANDLER, classLoader);
         if (handlerClass == null) {
