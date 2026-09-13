@@ -41,6 +41,13 @@ The project includes compile-only Xposed stubs, so it does not package Xposed AP
 
 If you use a local Android SDK older than API 36, change `compileSdk` and `targetSdk` in `app/build.gradle` to `35`. The module runtime path itself only checks for Android 15+.
 
+### Build on GitHub without Android Studio
+
+Upload the complete project, including the hidden `.github` directory, to a
+GitHub repository. Open **Actions**, select **Build APK**, then choose
+**Run workflow**. When the run finishes, download the
+`LineagePillCts-debug` artifact from the run summary.
+
 ## Install
 
 ```sh

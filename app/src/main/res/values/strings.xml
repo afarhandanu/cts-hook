@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Lineage Pill CTS</string>
+    <string name="app_description">LSPosed hook for native Circle to Search from the navigation gesture handle.</string>
+</resources>

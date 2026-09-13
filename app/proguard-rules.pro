@@ -1,0 +1,3 @@
+-keep class dev.afdo.lineagepillcts.HookEntry { *; }
+-keep class dev.afdo.lineagepillcts.** { *; }
+-dontwarn de.robv.android.xposed.**
