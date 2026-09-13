@@ -25,10 +25,13 @@ final class ContextualSearchStarter {
 
         Object manager = getContextualSearchManager(context);
         if (manager != null && startViaManager(manager)) {
+            HookLogger.i("Contextual search started via ContextualSearchManager");
             return true;
         }
 
-        return startViaBinder();
+        boolean started = startViaBinder();
+        HookLogger.i("Contextual search binder fallback result=" + started);
+        return started;
     }
 
     private static boolean isKeyguardLocked(Context context) {
@@ -82,6 +85,7 @@ final class ContextualSearchStarter {
             Method getService = serviceManager.getDeclaredMethod("getService", String.class);
             IBinder binder = (IBinder) getService.invoke(null, CONTEXTUAL_SEARCH_SERVICE);
             if (binder == null) {
+                HookLogger.i("contextual_search service is not registered");
                 return false;
             }
 

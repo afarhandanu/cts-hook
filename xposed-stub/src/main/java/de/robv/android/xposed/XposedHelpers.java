@@ -22,4 +22,10 @@ public final class XposedHelpers {
     public static Object getObjectField(Object object, String fieldName) {
         return null;
     }
+
+    public static void setStaticBooleanField(Class<?> clazz, String fieldName, boolean value) {
+    }
+
+    public static void setStaticObjectField(Class<?> clazz, String fieldName, Object value) {
+    }
 }

@@ -2,13 +2,16 @@
 
 Minimal LSPosed module for LineageOS/Pixel Launcher setups where native Circle to Search is already present, but long-pressing the gesture pill does not invoke it.
 
+Current module version: `0.2.0`.
+
 The module does not spoof device identity, does not clone Lens, and does not draw an overlay. It only tries to connect the existing navigation-handle long-press path to Android's native Contextual Search service.
 
 ## What It Hooks
 
 - `com.google.android.apps.nexuslauncher` and `com.android.launcher3`
+  - Enables the Launcher3 input-consumer gate before gesture handling begins.
   - Enables Launcher3/Quickstep's native `NavHandleLongPressHandler` entrypoint when that class exists.
-  - Keeps Launcher3's own safety checks for keyguard, notification shade, splitscreen, settings, and contextual-search availability.
+  - Uses the launcher's checked invocation when available, then falls back directly to the native service if the launcher reports the feature unavailable.
 
 - `com.android.systemui`
   - Adds a fallback long-click listener to known SystemUI navigation handle classes and the `home_handle` dispatcher.

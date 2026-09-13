@@ -17,6 +17,8 @@ final class QuickstepNavHandleHook {
     }
 
     static void install(ClassLoader classLoader, String packageName) {
+        QuickstepFeatureGateHook.install(classLoader, packageName);
+
         Class<?> handlerClass = HookUtils.findClassIfExists(NAV_HANDLE_LONG_PRESS_HANDLER, classLoader);
         if (handlerClass == null) {
             HookLogger.i("Quickstep nav handle handler not found in " + packageName);
@@ -59,13 +61,16 @@ final class QuickstepNavHandleHook {
                                 param.thisObject,
                                 "mContextualSearchInvoker",
                                 CONTEXTUAL_SEARCH_INVOKER);
-                        if (!launcherChecksPass(invoker)) {
+                        Context context = findContext(param.thisObject);
+                        if (context == null) {
                             return;
                         }
 
-                        Context context = findContext(param.thisObject);
+                        boolean launcherChecksPassed = launcherChecksPass(invoker);
+                        HookLogger.i("Supplying native contextual-search fallback; launcherChecks="
+                                + launcherChecksPassed);
                         param.setResult((Runnable) () -> {
-                            if (!invokeThroughLauncherInvoker(invoker)) {
+                            if (!launcherChecksPassed || !invokeThroughLauncherInvoker(invoker)) {
                                 ContextualSearchStarter.start(context);
                             }
                         });
